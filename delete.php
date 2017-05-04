@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 $sql = "DELETE FROM MyGuests where id=14";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Record updated successfully";
+    echo "Record deleted successfully";
 } else {
     echo "Error deleting record: " . $conn->error;
 }
