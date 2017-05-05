@@ -1,3 +1,9 @@
+<head>
+</head>
+
+<body>
+
+
 <?php
 $servername = "localhost";
 $username = "root";
@@ -24,3 +30,7 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 ?>
+
+<a href="main.php"> Click here to go to the main page </a>
+
+</body>

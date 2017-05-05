@@ -4,12 +4,7 @@
 
 <body>
 
-<form action="/insert.php" method="post">
-First Name: <input type="text" name="firstname"><br>
-Last Name: <input type="text" name="lastname"><br>
-E-mail: <input type="text" name="email"><br>
-<input type="submit">
-</form>
+
 
 <?php
 $servername = "localhost";
@@ -41,5 +36,18 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
+<form action="" method="post">
+First Name: <input type="text" name="firstname">
+Last Name: <input type="text" name="lastname">
+E-mail: <input type="text" name="email">
+ <input type="submit" class="btn btn-success" value="Create" name="create"  formaction="insert.php">    <input type="submit" class="btn btn-success" value="Update" name="update"  formaction="update.php">
+ID: <input type="text" name="id">
+<br>
+Delete : <input type="integer" name="recordnumber">
+ <input type="submit" class="btn btn-success" value="Delete" name="Delete"  formaction="delete.php">
+
+
+</form>
 
 </body>
