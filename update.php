@@ -7,11 +7,27 @@
 $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];
 $email = $_POST['email'];
-$id = $_POST['id'];
-
-
+$id = ($_POST['id']);
 
 //validate parameters
+
+function validate($firstname,$lastname,$email,$id) {
+
+if ( (!ctype_digit($id)) || (empty($id))) {
+
+
+    http_response_code(400);
+
+	
+} else {
+	    
+
+	update($firstname,$lastname,$email,$id);
+}
+}
+
+
+
 
 function update($firstname,$lastname,$email,$id) {
 
@@ -20,15 +36,12 @@ $username = "root";
 $password = "";
 $dbname = "myDB";
 
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-
-
 
 $sql = "UPDATE MyGuests SET firstname = '$firstname' , lastname = '$lastname' , email = '$email' WHERE ID = '$id'";
 
@@ -56,13 +69,12 @@ if ($result->num_rows > 0) {
 
 }
 
-
 $conn->close();
 
 }
 
 
-update($firstname,$lastname,$email,$id);
+validate($firstname,$lastname,$email,$id);
 
 ?>
 
