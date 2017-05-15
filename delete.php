@@ -9,14 +9,9 @@ $id = $_POST['id'];
 function validate($id) {
 
 if ( (!ctype_digit($id)) || (empty($id))) {
-
-
     http_response_code(400);
-
-    
+  
 } else {
-        
-
     delete($id);
 }
 }
@@ -43,13 +38,11 @@ $sql = "SELECT id, firstname , lastname , email, reg_date FROM MyGuests";
 $result = $conn -> query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<table><tr><th>ID</th><th>Name</th><th>email</th><th>reg date</th></tr>";
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["id"]."</td><td>".$row["firstname"]." ".$row["lastname"]."</td><td>".$row["email"]."</td><td>".$row["reg_date"]."</td></tr>";
+    $result_arr = $result->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($result_arr);
     }
-    echo "</table>";
-} else {
+    
+else {
     echo "0 results";
 }
 }
