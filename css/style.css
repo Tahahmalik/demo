@@ -1,0 +1,39 @@
+#table {
+	border: 3px solid black;
+	text-align: center;
+}
+
+
+#updaterecord {
+	display : inline-block;
+	visibility: hidden;
+	
+}
+
+#idupdate {
+	display : none;
+}
+
+#updateclick {
+	display : none;
+}
+
+
+
+#heading {
+   
+   text-align: center;
+   font-weight: bold;
+
+}
+
+#newrecord {
+
+	visibility: hidden;
+
+}
+
+#createnew {
+
+	visibility: hidden;
+}
