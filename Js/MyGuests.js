@@ -1,16 +1,53 @@
-function load() {
+var document;
+
+$(document).ready(function(){
+
+  window.loadcustomers();
+  $('.listitem').hover(function(){
+
+
+    $(this).css("background-color","#33FF66");
+
+
+  },
+
+  function(){
+
+    $(this).css("background-color","transparent");
+  }
+
+  )
+
+
+//$('.listitem').css("background-color","red");
+$('#searchhandle').keyup(function(){
+
+  window.search();
+
+});
+
+});
+
+
+function loadcustomers() {
   $(".tablerows").remove();
-  $.getJSON( "load.php", function( data ) {
 
-    $.each(data, function ( key , value) {
+  var post = "table=";
+  $.post("load.php" ,post, function(data) {
 
+$.each(data, function ( key , value) {
       var id = this.id;
+      $(".table").append("<tr class='tablerows'><td>"+this.id+"</td><td><input type='submit' class='btn btn-success' value='Show cars' name='Show cars' onclick='showcars("+this.id+",&quot;"+this.firstname+"&quot;)'></td><td>"+this.firstname+"</td><td>"+this.lastname+"</td><td>"+this.email+"</td><td>"+this.reg_date+"</td><td>$"+this.value+"</td><td><img src='images/delete.png' onclick='del("+this.id+")'></td><td><img src='images/edit.png' onclick='changerecord("+id+")'></td><td><a href=mailto:"+this.email+"><img src='images/mail.png'></a></td></tr>");
 
-      $(".table").append("<tr class='tablerows'><td>"+this.id+"</td><td>"+this.firstname+"</td><td>"+this.lastname+"</td><td>"+this.email+"</td><td>"+this.reg_date+"</td><td><img src='images/delete.png' onclick='del("+this.id+")'></td><td><img src='images/edit.png' onclick='changerecord("+id+")'></td></tr>");
-
-    });
   });
-} 
+
+      
+      },'json');
+
+};
+
+
+
 
 
 
@@ -36,7 +73,7 @@ function update(){
 
     if (this.readyState == 4 && this.status == 200) {
 
-     load();
+     loadcustomers();
 
    }
 
@@ -74,7 +111,7 @@ function create(){
 
     if (this.readyState == 4 && this.status == 200) {
 
-      load();
+      loadcustomers();
 
     }
 
@@ -95,8 +132,6 @@ function create(){
 
 function del(id) {
 
-
-
   var post = 'id='+id;
   console.log(post);    
   
@@ -108,7 +143,7 @@ function del(id) {
   xmlhttp.onreadystatechange = function() {
 
     if (this.readyState == 4 && this.status == 200) {
-      load();
+      loadcustomers();
 
     }
 
@@ -122,6 +157,29 @@ function del(id) {
 
 }
 
+function search() {
+
+  var searchhandle = document.getElementById("searchhandle").value;
+  var search = document.getElementById("search").value;
+
+  var post = 'search='+search+'&searchhandle='+searchhandle;
+  console.log(post);
+
+  $(".tablerows").remove();
+  $.post( "search.php", post, function(data) {
+    console.log(data);
+    $.each(data, function ( key , value) {
+
+      var id = this.id;
+      $(".table").append("<tr class='tablerows'><td>"+this.id+"</td><td><input type='submit' class='btn btn-success' value='Show cars' name='Show cars' onclick='showcars("+this.id+")'></td><td>"+this.firstname+"</td><td>"+this.lastname+"</td><td>"+this.email+"</td><td>"+this.reg_date+"</td><td>$"+this.value+"</td><td><img src='images/delete.png' onclick='del("+this.id+")'></td><td><img src='images/edit.png' onclick='changerecord("+id+")'></td><td><a href=mailto:"+this.email+"><img src='images/mail.png'></a></td></tr>");
+
+     /* $(".table").append("<tr class='tablerows'><td>"+this.id+"</td><td>"+this.firstname+"</td><td>"+this.lastname+"</td><td>"+this.email+"</td><td>"+this.reg_date+"</td><td><img src='images/delete.png' onclick='del("+this.id+")'></td><td><img src='images/edit.png' onclick='changerecord("+id+")'></td><td><a href=mailto:"+this.email+"><img src='images/mail.png'></a></td></tr>");
+     */
+   });
+  },'json');  
+
+
+};
 
 
 
@@ -155,8 +213,68 @@ function changerecord(id){
 }
 
 function createnew() {
-$("#createnew").css("visibility","visible");
+  $("#createnew").css("visibility","visible");
 
-$("#newrecord").css("visibility","visible");
+  $("#newrecord").css("visibility","visible");
+
+};
+
+function showcars(id,firstname) {
+
+  var showWindow = window.open("", "MsgWindow", "left=2000,width=350,height=200,location=no,menubar=no,resizable=no,status=no,titlebar=no,toolbar=no,top=300");
+
+  var identity = 'idee='+id;
+  console.log(identity);
+
+  showWindow.document.writeln("<p> These are "+firstname+"'s cars</p>");
+  $.post( "loadcars.php", identity, function(data) {
+    showWindow.document.writeln("<table class='table'><th>"+"Model  "+"</th>"+"<th>"+"Year  "+"</th>"+"<th>"+"Colour  "+"</th>"+"<th>"+"Type"+"</th>"+"<th>"+"Plate"+"</th>");
+
+    $.each(data, function ( key , value) {
+
+      showWindow.document.writeln("<tr><td> "+this.Model+"</td><td> "+  this.Year+"</td><td> "+  this.Colour+"</td><td> "+  this.Type+"</td><td>"+this.Plate+"</td></tr><br>");
+
+    });
+    showWindow.document.writeln("</table>");
+    
+    
+  }, 'json');
+
+
+  
+};
+
+
+function checklogin() {
+
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+var userrole = document.getElementById("userrole").value;
+
+var post = 'username='+username+'&password='+password+'&userrole='+userrole ;
+console.log(post);
+
+/*
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", "checklogin.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  
+  
+  xmlhttp.onreadystatechange = function() {
+
+   
+       if (this.readyState == 4 && this.status == 401) {
+     alert(" Your Username or password incorrect , please try again");
+
+   }
+
+   if (this.readyState == 4 && this.status == 200) {
+
+    
+    
+   }
+ };
+
+ xmlhttp.send(post); */
 
 }

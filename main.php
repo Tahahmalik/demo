@@ -1,51 +1,39 @@
+<html>
 <head>
-	<title> My Basic Page </title>
-	<script src="js/MyGuests.js"></script>
+	<title> ABC Design - Main Page </title>
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/MyGuests.js"></script>
+	
+	
 </head>
 
+<?php
+   session_start(); //starts the session
+   if($_SESSION['user']){ // checks if the user is logged in  
+   }
+   else{
+   	 Print '<script>alert(" You need to log in!") </script>';
+      header("location: login.php"); // redirects if user is not logged in
+   }
+   $user = $_SESSION['user']; //assigns user value
+   ?>
+
 <body>
-	<p id="heading">Current data in the table</p><br>
 	
-
-	<table>
-		<tr>
-			<td>
-				<form action="" method="post" id="newrecord">
-					First Name: <input type="text" name="firstname" id="firstname"><br><br>
-					Last Name: <input type="text" name="lastname" id="lastname"><br><br>
-					E-mail: <input type="text" name="email" id="email" >
-				</form>
-				<input type="submit" class="btn btn-success" value="Create Record" name="createnew"  id="createnew" onclick="create()">
-			</td>
-			<td>
-
-				<table id="table" class="table">
-					<th>ID</th>
-					<th>First name</th>
-					<th>Last name</th>
-					<th>Email</th>
-					<th>Registration date</th>
-				</table> <br>
-				<input type="submit" class="btn btn-success" value="Display all" name="load" onclick="load()">
-				<input type="submit" class="btn btn-success" value="Enter New" name="Enter"  onclick="createnew()">
-			</td>
-
-			<td>
-				<form action="" method="post" id="updaterecord">
-					First Name: <input type="text" name="firstname" id="firstnameupdate"><br>
-					Last Name: <input type="text" name="lastname" id="lastnameupdate"><br>
-					E-mail: <input type="text" name="email" id="emailupdate" >
-					<input type="text" name="id" id="idupdate">
-				</form>
-				<input type="submit" class="btn btn-success" value="Update" name="update"  id="updateclick" onclick="update()">
-
-			</td>
-		</tr>
-	</table>
+	<img id="topbanner" src="images/Top-banner.png"/>
+	<p> Hello <?php Print "$user"?> </p>
+	<a href="logout.php"> Click here to logout </a> 
+	<div id="menubar">
+	<ul id="menu">
+	<li class="listitem"> Customers </li>
+	<li class="listitem"> Cars </li>
+	<li class="listitem"> Plates </li>
+	</ul>
+	</div>
+	<iframe id="frame" src="cars.php" height="100%" width="100%"> </iframe>
 	
-
-	<input type="submit" class="btn btn-success" value="Update" name="update"  id="updateclick" onclick="update()">
-
-</body>
+	</body>
+	</html>

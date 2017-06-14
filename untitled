@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cars</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="js/MyGuests.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<?php
+   session_start(); //starts the session
+   if($_SESSION['user']){ // checks if the user is logged in  
+   }
+   else{
+   	 Print '<script>alert(" You need to log in!") </script>';
+      header("location: login.php"); // redirects if user is not logged in
+   }
+   $user = $_SESSION['user']; //assigns user value
+   ?>
+   
+<body>
+   
+	<table class="display">
+		<tr>
+			<td>
+				<form action="" method="post" id="newrecord">
+					Model: <input type="text" name="model" id="model"><br><br>
+					Year: <input type="text" name="year" id="year"><br><br>
+					Colour: <input type="text" name="colour" id="colour" >
+					Type: <input type="text" name="type" id="type" >
+					Owner: <input type="text" name="owner" id="owner" >
+				</form>
+				<input type="submit" class="btn btn-success" value="Create Record" name="createnew"  id="createnew" onclick="createcar()">
+			</td>
+			<td>
+
+				<table id="table" class="table">
+					<th class="tableheader">Model</th>
+					<th class="tableheader"></th>
+					<th class="tableheader">Year</th>
+					<th class="tableheader">Colour</th>
+					<th class="tableheader">Type</th>
+					<th class="tableheader">Owner</th>
+					<th class="tableheader">Cars Value</th>
+				</table> <br>
+				<input type="submit" class="btn btn-success" value="Display all" name="load" onclick="loadcars()">
+				<input type="submit" class="btn btn-success" value="Enter New" name="Enter"  onclick="createnewcar()"><br>
+				Search where <select id="search">
+				<option value="model">Model</option>
+				<option value="year">Year</option>
+				<option value="colour">Colour</option>
+				<option value="type">Type</option>
+			</select> 
+			<input type="text" name="searchhandle" id="searchhandle">
+			<input type="submit" class="btn btn-success" value="Search" name="Search" onclick="search()"><br>
+		</td>
+
+		<td>
+			<form action="" method="post" id="updaterecord">
+				First Name: <input type="text" name="firstname" id="firstnameupdate"><br>
+				Last Name: <input type="text" name="lastname" id="lastnameupdate"><br>
+				E-mail: <input type="text" name="email" id="emailupdate" >
+				<input type="text" name="id" id="idupdate">
+			</form>
+			<input type="submit" class="btn btn-success" value="Update" name="update"  id="updateclick" onclick="update()">
+
+		</td>
+	</tr>
+</table>
+
+
+<input type="submit" class="btn btn-success" value="Update" name="update"  id="updateclick" onclick="update()">
+
+</body>
+</body>
+</html>

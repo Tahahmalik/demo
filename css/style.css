@@ -1,6 +1,7 @@
 #table {
-	border: 3px solid black;
+	border: 1px solid black;
 	text-align: center;
+	
 }
 
 
@@ -21,9 +22,9 @@
 
 
 #heading {
-   
-   text-align: center;
-   font-weight: bold;
+	
+	text-align: center;
+	font-weight: bold;
 
 }
 
@@ -36,4 +37,55 @@
 #createnew {
 
 	visibility: hidden;
+}
+
+#menu {
+	
+	list-style: none;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-left: 37%;
+	
+}
+
+.listitem {
+
+	display: inline-block;
+	border: 0.5px solid #5C5C5C;
+	padding: 5px;
+	margin-left: 20px;
+	width: auto;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+}
+
+#menubar {
+
+	background-color: #5C5C5C;
+}
+
+#frame {
+
+	border-style: none;
+
+}
+
+#topbanner {
+margin-left: 35%;
+height : 50px;
+width: 25%;
+padding: 1px;
+}
+
+.display {
+
+	margin: auto;
+}
+
+
+.listitem:hover {
+
+background-color: black;
+
 }
